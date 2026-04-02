@@ -13,11 +13,11 @@
                     colors: {
                         /* Cores extraídas do Flyer */
                         brand: {
-                            light: '#fdf2f8',   /* Fundo rosa bem claro */
-                            pink: '#db2777',    /* Rosa médio das flores */
-                            magenta: '#be185d', /* Magenta escuro para botões e títulos fortes */
-                            coral: '#f97316',   /* Laranja/Coral para o efeito degradê */
-                            dark: '#4c0519',    /* Vinho bem escuro para textos longos */
+                            light: '#fdf2f8',
+                            pink: '#db2777',
+                            magenta: '#be185d',
+                            coral: '#f97316',
+                            dark: '#4c0519',
                         }
                     },
                     fontFamily: {
@@ -31,8 +31,14 @@
 </head>
 <body class="bg-brand-light text-gray-800 font-sans antialiased">
 
-<header class="bg-white py-20 text-center shadow-sm border-b border-brand-pink/20">
-    <div class="container mx-auto px-4">
+<header class="bg-white py-16 text-center shadow-sm border-b border-brand-pink/20">
+    <div class="container mx-auto px-4 flex flex-col items-center">
+
+        <div class="mb-8">
+            <img src="WhatsApp Image 2026-04-02 at 18.27.33.JPG" alt="Pastora Rosângela"
+                 class="w-40 h-40 md:w-48 md:h-48 rounded-full border-4 border-brand-pink shadow-xl object-cover">
+        </div>
+
         <span class="text-brand-magenta font-semibold tracking-wider uppercase text-sm mb-4 block">25 de Abril • 18:00</span>
 
         <h1 class="text-5xl md:text-7xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-pink to-brand-coral mb-4 pb-2">
@@ -147,7 +153,7 @@
         <p class="font-serif text-xl italic mb-6">"O que Deus gera no secreto, Ele revela no tempo certo!" 🦋</p>
         <div class="border-t border-brand-magenta/50 pt-6 mt-6 text-sm text-brand-light/70 flex justify-between items-center max-w-4xl mx-auto">
             <span>© 2026 Conferência Mulheres Transformadas.</span>
-            <a href="/admin" class="hover:text-white transition">Acesso Admin</a>
+            <a href="/admin.html" class="hover:text-white transition">Acesso Admin</a>
         </div>
     </div>
 </footer>
@@ -171,14 +177,24 @@
         };
 
         try {
-            // Simula o tempo de resposta do servidor Neon
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            // Comando REAL de conexão com o seu banco Neon via Vercel
+            const response = await fetch('/api/inscrever', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
 
-            alert('Inscrição confirmada! Esperamos por você. 🦋');
-            form.reset();
+            if (response.ok) {
+                alert('Inscrição confirmada! Esperamos por você. 🦋');
+                form.reset();
+            } else {
+                alert('Ops! Algo deu errado no servidor. Tente novamente.');
+            }
         } catch (error) {
             console.error('Erro:', error);
-            alert('Ops! Algo deu errado. Verifique sua conexão e tente novamente.');
+            alert('Ops! Erro de conexão. Verifique sua internet.');
         } finally {
             submitBtn.disabled = false;
             submitBtn.innerText = originalBtnText;
