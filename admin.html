@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Mulheres Transformadas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 p-8 hidden" id="conteudo-admin">
+<div class="max-w-xl mx-auto text-center">
+    <h1 class="text-3xl font-bold text-pink-800 mb-8">Painel da Liderança 🦋</h1>
+
+    <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-pink-600">
+        <p class="text-gray-500 font-bold uppercase mb-2">Total de Inscritas</p>
+        <h2 id="numero-inscritos" class="text-7xl font-bold text-gray-800">...</h2>
+    </div>
+
+    <div class="mt-8">
+        <a href="/" class="text-pink-600 hover:underline">Voltar para o site</a>
+    </div>
+</div>
+
+<script>
+    const SENHA = "1234";
+    if (prompt("Digite a senha do Admin:") === SENHA) {
+        document.getElementById('conteudo-admin').classList.remove('hidden');
+
+        // Busca o total no Neon
+        async function carregarTotal() {
+            const res = await fetch('/api/stats');
+            const dados = await res.json();
+            document.getElementById('numero-inscritos').innerText = dados.total || 0;
+        }
+        carregarTotal();
+        setInterval(carregarTotal, 15000); // Atualiza a cada 15 segundos
+    } else {
+        alert("Senha incorreta!");
+        window.location.href = "/";
+    }
+</script>
+</body>
+</html>
