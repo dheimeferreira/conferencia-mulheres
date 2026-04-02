@@ -1,0 +1,12 @@
+{
+  "name": "conferencia-mulheres",
+  "version": "1.0.0",
+  "description": "Site para a Conferência Mulheres Transformadas",
+  "main": "index.js",
+  "dependencies": {
+    "pg": "^8.11.0"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
